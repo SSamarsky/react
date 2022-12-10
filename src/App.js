@@ -1,10 +1,13 @@
+import React from "react";
 import { Categories } from "./components/categories/Categories";
 import { Header } from "./components/header/Header";
 import { PizzaBlock } from "./components/pizzaBlock/PizzaBlock";
 import { Sort } from "./components/sort/Sort";
 import "./scss/app.scss";
+import pizzas from './assets/pizzas.json'
 
 function App() {
+
   return (
     <div className="wrapper">
       <Header />
@@ -16,7 +19,14 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            <PizzaBlock />
+            {pizzas.map((pizza) => {
+              return (
+                <PizzaBlock
+                  key={pizza.id}
+                  {...pizza}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
