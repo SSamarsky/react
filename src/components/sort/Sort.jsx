@@ -1,10 +1,24 @@
-import React from 'react'
+import React from 'react';
 
 export const Sort = () => {
+    const valuesSort = ['популярности', 'цене', 'алфавиту'];
+    const [popup, setPopup] = React.useState(false);
+    const [valueActive, setValueActive] = React.useState(valuesSort[0]);
+    const sortName = valueActive;
+
+    const openPopup = () => {
+        setPopup(!popup);
+    };
+    const doActiveValue = (value) => {
+        setValueActive(value);
+        setPopup(!popup);
+    };
+
     return (
         <div className="sort">
             <div className="sort__label">
                 <svg
+                    className={!popup ? 'active' : ''}
                     width="10"
                     height="6"
                     viewBox="0 0 10 6"
@@ -17,15 +31,28 @@ export const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span>популярности</span>
+                <span
+                    onClick={openPopup}
+                >
+                    {sortName}
+                </span>
             </div>
-            <div className="sort__popup">
-                <ul>
-                    <li className="active">популярности</li>
-                    <li>цене</li>
-                    <li>алфавиту</li>
-                </ul>
-            </div>
+            {popup &&
+                <div className="sort__popup">
+                    <ul>
+                        {valuesSort.map(item => {
+                            return <li
+                                key={item}
+                                className={valueActive === item ? "active" : ''}
+                                onClick={() => doActiveValue(item)}
+                            >
+                                {item}
+                            </li>
+                        })}
+                    </ul>
+                </div>
+            }
+
         </div>
     )
 }
