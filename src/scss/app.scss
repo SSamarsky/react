@@ -10,7 +10,7 @@ body {
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
-  min-height: 100vh;
+  // min-height: 100vh;
   background-color: #fff;
   margin: 50px auto;
   border-radius: 10px;
@@ -25,16 +25,27 @@ body {
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 45px;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: center;
+    // gap: 45px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 20px;
+    justify-items: center;
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .categories {
+      margin-bottom: 20px;
+    }
   }
 }
 
@@ -45,6 +56,7 @@ body {
   &--cart {
     max-width: 820px;
     margin: 90px auto;
+
     .content__title {
       margin: 0;
     }
@@ -69,6 +81,7 @@ body {
       width: 30px;
       height: 30px;
       margin-right: 10px;
+
       path {
         stroke: $black;
         stroke-width: 1.9;
@@ -101,6 +114,7 @@ body {
           stroke: darken($color: #b6b6b6, $amount: 50);
         }
       }
+
       span {
         color: darken($color: #b6b6b6, $amount: 50);
       }
@@ -201,6 +215,7 @@ body {
           height: 11.5px;
           position: relative;
         }
+
         &:hover,
         &:active {
           border-color: darken($color: $gray-line, $amount: 80);
@@ -258,6 +273,7 @@ body {
 
         svg {
           margin-right: 12px;
+
           path {
             fill: transparent;
             stroke-width: 2;
