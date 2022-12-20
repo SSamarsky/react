@@ -1,0 +1,40 @@
+.root {
+    position: relative;
+
+    .icon {
+        width: 25px;
+        height: 25px;
+        fill: rgba(0, 0, 0, .4);
+        position: absolute;
+        top: 6px;
+        left: 5px;
+    }
+
+    .input {
+        width: 300px;
+        padding: 5px 40px;
+        border-radius: 10px;
+        font-size: 16px;
+        border: 1px solid rgba(0, 0, 0, .2);
+
+        &:focus {
+            border: 1px solid rgba(0, 0, 0, .4);
+        }
+    }
+
+    .delete {
+        width: 25px;
+        height: 25px;
+        fill: rgba(0, 0, 0, .4);
+        position: absolute;
+        top: 6px;
+        right: 5px;
+        cursor: pointer;
+        transition: all .2s ease-in-out;
+
+        &:hover {
+            fill: rgba(0, 0, 0, .8);
+        }
+    }
+    
+}
