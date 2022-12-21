@@ -4,16 +4,20 @@ import { Sort } from "../../components/sort/Sort";
 import { Categories } from "../../components/categories/Categories";
 import { PizzaBlock } from "../../components/pizzaBlock/PizzaBlock";
 import { Pagination } from '../../components/pagination/Pagination';
+import {SearchContext} from '../../App'
 
 
-export const Home = ({ searchValue }) => {
+export const Home = () => {
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLOading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
   const [sortType, setSortType] = React.useState({ name: 'популярности (DESC)', sortProperty: 'rating' });
   const [currentPage, setCurrentPage] = React.useState(0);
+  const {searchValue} = React.useContext(SearchContext);
 
-  const items = pizzas.map((pizza) => {
+  const items = pizzas.filter(obj => {
+    return obj.title.toLowerCase().includes(searchValue.toLowerCase());
+  }).map((pizza) => {
     return <PizzaBlock key={pizza.id} {...pizza} />
   });
 
@@ -27,10 +31,10 @@ export const Home = ({ searchValue }) => {
     const category = categoryId > 0 ? "category=" + categoryId : '';
     const sortBy = sortType.sortProperty.replace('-', '');
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
-    const search = searchValue ? "&search=" + searchValue : '';
+    // const search = searchValue ? "&search=" + searchValue : '';
 
     fetch(
-      `https://639601bf90ac47c6807a740d.mockapi.io/items?page=${currentPage + 1}&limit=4${category}&sortBy=${sortBy}&order=${order}${search}`)
+      `https://639601bf90ac47c6807a740d.mockapi.io/items?page=${currentPage + 1}&limit=8&${category}&sortBy=${sortBy}&order=${order}`)
       .then((res) => res.json()
       )
       .then((data) => {
