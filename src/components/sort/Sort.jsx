@@ -1,23 +1,28 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {setSort} from '../../redux/slices/filterSlice';
 
-export const Sort = ({ value, onClickSort }) => {
-    const listSort = [
-        { name: 'популярности (DESC)', sortProperty: 'rating' },
-        { name: 'популярности (ASC)', sortProperty: '-rating' },
-        { name: 'цене (DESC)', sortProperty: 'price' },
-        { name: 'цене (ASC)', sortProperty: '-price' },
-        { name: 'алфавиту (DESC)', sortProperty: 'title' },
-        { name: 'алфавиту (ASC)', sortProperty: '-title' }
-    ];
+const listSort = [
+    { name: 'популярности (DESC)', sortProperty: 'rating' },
+    { name: 'популярности (ASC)', sortProperty: '-rating' },
+    { name: 'цене (DESC)', sortProperty: 'price' },
+    { name: 'цене (ASC)', sortProperty: '-price' },
+    { name: 'алфавиту (DESC)', sortProperty: 'title' },
+    { name: 'алфавиту (ASC)', sortProperty: '-title' }
+];
+
+export const Sort = () => {
+    const sortType = useSelector(state => state.filter.sort);
+    const dispatch = useDispatch();
     const [popup, setPopup] = React.useState(false);
-    const sortName = value['name'];
+    const sortName = sortType['name'];
 
-    const openPopup = () => {
+    const togglePopup = () => {
         setPopup(!popup);
     };
-    const doSort = (value) => {
-        onClickSort(value)
-        setPopup(!popup);
+    const doSort = (object) => {
+        dispatch(setSort(object));
+        togglePopup()
     };
 
     return (
@@ -38,7 +43,7 @@ export const Sort = ({ value, onClickSort }) => {
                 </svg>
                 <b>Сортировка по:</b>
                 <span
-                    onClick={openPopup}
+                    onClick={togglePopup}
                 >
                     {sortName}
                 </span>
@@ -49,7 +54,7 @@ export const Sort = ({ value, onClickSort }) => {
                         {listSort.map((obj, i) => {
                             return <li
                                 key={i}
-                                className={value.name === obj.name ? "active" : ''}
+                                className={sortType.name === obj.name ? "active" : ''}
                                 onClick={() => doSort(obj)}
                             >
                                 {obj.name}
