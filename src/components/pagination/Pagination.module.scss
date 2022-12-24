@@ -1,25 +1,41 @@
 .pagination {
-    width: 50px;
+    padding-top: 30px;
     display: flex;
+    justify-content: center;
     gap: 10px;
     margin: 0 auto;
     font-size: 18px;
 
     li {
-        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 35px;
+        height: 35px;
+        background-color: #fff;
+        border: 2px solid orangered;
+        border-radius: 50%;
         cursor: pointer;
 
         &:hover {
-            font-weight: 700;
+            background-color: orangered;
+
+            a {
+                padding: 10px;
+                color: #fff;
+            }
         }
     }
 
     :global {
         .selected {
+            background-color: orangered;
+
             a {
-                font-weight: 700;
+                color: #fff;
             }
-            
+
         }
     }
 
