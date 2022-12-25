@@ -82,15 +82,16 @@ export const Home = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
 
-    if (!isSearch.current) {
-      fetchPizzas();
-    }
+    fetchPizzas();
+    // if (!isSearch.current) {
+    //   fetchPizzas();
+    // }
 
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   const items = pizzas.map((pizza) => {
-    return <PizzaBlock key={pizza.id} {...pizza} />
+    return <PizzaBlock key={pizza.id} {...pizza}/>
   });
 
   const skeleton = [...new Array(8)].map((item, index) => {
