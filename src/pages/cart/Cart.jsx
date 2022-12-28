@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { CartItem } from '../../components/cartItem/CartItem';
 import { clearItems } from '../../redux/slices/cartSlice';
+import { CartEmpty } from '../../components/cartEnpty/CartEmpty';
+import { NotFound } from '../notFound/NotFound';
 
 export const Cart = () => {
     const dispatch = useDispatch();
@@ -15,8 +17,11 @@ export const Cart = () => {
     }
 
     return (
-        <div>
-            <div className="container container--cart">
+        <div className="container container--cart">
+            { countItems === 0
+                ?
+                <CartEmpty />
+                :
                 <div className="cart">
                     <div className="cart__top">
                         <h2 className="content__title">
@@ -38,12 +43,12 @@ export const Cart = () => {
                     </div>
                     <div className="cart__items">
                         {items
-                        .filter(obj => {
-                            return obj.count !== 0
-                        })
-                        .map(obj => {
-                            return <CartItem obj={obj} key={obj.id} />
-                        })}
+                            .filter(obj => {
+                                return obj.count !== 0
+                            })
+                            .map(obj => {
+                                return <CartItem obj={obj} key={obj.id} />
+                            })}
                     </div>
                     <div className="cart__bottom">
                         <div className="cart__bottom-details">
@@ -64,7 +69,7 @@ export const Cart = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     )
 }

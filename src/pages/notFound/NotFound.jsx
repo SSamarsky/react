@@ -5,7 +5,7 @@ export const NotFound = () => {
     return (
         <div>
             <NotFoundBlock />
-            <p style={{fontSize: '20px', color: '#d60857', textAlign: 'center'}}>К сожадению данная страница отсутствует в нашем магазине</p>
+            <p style={{fontSize: '20px', color: '#d60857', textAlign: 'center'}}>К сожадению произошла ошибкае</p>
         </div>
     )
 }
