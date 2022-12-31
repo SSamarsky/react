@@ -4,12 +4,11 @@ import { listSort, Sort } from "../../components/sort/Sort";
 import { Categories, categories } from "../../components/categories/Categories";
 import { PizzaBlock } from "../../components/pizzaBlock/PizzaBlock";
 import { Pagination } from '../../components/pagination/Pagination';
-import { SearchContext } from '../../App'
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice';
+import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { fetchPizzas } from '../../redux/slices/pizzasSlice';
+import { fetchPizzas, selectPizzasData } from '../../redux/slices/pizzasSlice';
 import { NotFound } from '../notFound/NotFound';
 
 
@@ -18,11 +17,10 @@ export const Home = () => {
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
-  const { searchValue } = React.useContext(SearchContext);
 
-  const { categoryId, sort, currentPage } = useSelector(state => state.filter);
-  const { items, status } = useSelector(state => state.pizzas)
-  
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
+  const { items, status } = useSelector(selectPizzasData);
+
   const changeCategory = (id) => {
     dispatch(setCategoryId(id));
   };
@@ -47,7 +45,7 @@ export const Home = () => {
 
     window.scrollTo(0, 0);
   }
-    
+
 
   // Если изменили параметры и был первый рендер, то вшивай в адресную строку параметры
   React.useEffect(() => {
@@ -103,7 +101,7 @@ export const Home = () => {
         </div>
         <h2 className="content__title">{categories[categoryId]} пиццы</h2>
         <div className="content__items">
-          { items.map((pizza) => {
+          {items.map((pizza) => {
             return <PizzaBlock key={pizza.id} {...pizza} />
           })}
         </div>
